@@ -1,5 +1,6 @@
 # MC1_app
 Steps to make the app work:
+
 1. 
 Open Android studio
 
