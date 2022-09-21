@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">MC_Project_1</string>
+<!--    <string name="dialog_title">Do you want to take a picture?</string>-->
+<!--    <string name="dialog_msg">This service allows you to take a picture and upload it to the server</string>-->
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string-array name="photo_types">
+        <item>--Select Category--</item>
+        <item>People</item>
+        <item>Object</item>
+        <item>Landscape</item>
+        <item>Miscellaneous</item>
+    </string-array>
+    <string name="spinner">Select</string>
+</resources>
