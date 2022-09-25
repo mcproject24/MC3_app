@@ -1,14 +1,9 @@
 package com.example.mc_project_1;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.FileUtils;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import java.io.File;
 
@@ -30,10 +28,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ServerActivity extends AppCompatActivity{
+public class ServerActivity extends AppCompatActivity {
     private Uri imageUri;
     private String type;
     private Boolean created = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,15 +68,13 @@ public class ServerActivity extends AppCompatActivity{
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (!created){
+                if (!created) {
                     created = true;
-                }
-                else{
-                    if(position > 0) {
+                } else {
+                    if (position > 0) {
                         type = parent.getItemAtPosition(position).toString();
                         submitButton.setVisibility(View.VISIBLE);
-                    }
-                    else{
+                    } else {
                         submitButton.setVisibility(View.GONE);
                     }
                 }
@@ -93,7 +90,7 @@ public class ServerActivity extends AppCompatActivity{
     }
 
     public void submit() {
-        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://192.168.0.198:5000/").addConverterFactory(GsonConverterFactory.create());
+        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://192.168.0.16:5000/").addConverterFactory(GsonConverterFactory.create());
 
         File f = new File(getRealPathFromURI(this, imageUri));
 
@@ -110,7 +107,6 @@ public class ServerActivity extends AppCompatActivity{
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Toast.makeText(ServerActivity.this, "Success", Toast.LENGTH_SHORT).show();
                 finish();
-
             }
 
             @Override
@@ -131,7 +127,7 @@ public class ServerActivity extends AppCompatActivity{
             cursor.moveToFirst();
             return cursor.getString(column_index);
         } catch (Exception e) {
-            Log.e("path error", "getRealPathFromURI Exception : " + e.toString());
+            Log.e("path error", "getRealPathFromURI Exception : " + e);
             return "";
         } finally {
             if (cursor != null) {
