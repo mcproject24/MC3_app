@@ -27,6 +27,8 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,18 +46,23 @@ public class MainActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             // Permissions for sdk greater than api 28
-            String[] permissions = new String[3];
+            List<String> permissionList = new ArrayList<String>();
             if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                permissions[0] = Manifest.permission.CAMERA;
+                permissionList.add(Manifest.permission.CAMERA);
             }
             if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                permissions[1] = Manifest.permission.READ_EXTERNAL_STORAGE;
+                permissionList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
             }
             if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                permissions[2] = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+                permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
             }
-            ActivityCompat.requestPermissions(this, permissions, 100);
+            if (permissionList.size() > 0)
+                ActivityCompat.requestPermissions(this, permissionList.toArray(new String[0]), 100);
         }
+
+        cameraProviderFuture = ProcessCameraProvider.getInstance(this);
+        previewView = findViewById(R.id.previewView);
+
 
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
         previewView = findViewById(R.id.previewView);
