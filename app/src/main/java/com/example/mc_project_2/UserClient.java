@@ -1,4 +1,4 @@
-package com.example.mc_project_1;
+package com.example.mc_project_2;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -11,9 +11,8 @@ import retrofit2.http.Part;
 public interface UserClient {
 
     @Multipart
-    @POST("save_image")
+    @POST("predict")
     Call<ResponseBody> uploadPhoto(
-            @Part("description") RequestBody description,
             @Part MultipartBody.Part photo
             );
 }

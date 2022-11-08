@@ -1,4 +1,4 @@
-package com.example.mc_project_1;
+package com.example.mc_project_2;
 
 import org.junit.Test;
 

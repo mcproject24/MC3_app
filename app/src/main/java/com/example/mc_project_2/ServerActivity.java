@@ -1,4 +1,4 @@
-package com.example.mc_project_1;
+package com.example.mc_project_2;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -30,8 +30,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServerActivity extends AppCompatActivity {
     private Uri imageUri;
-    private String type;
-    private Boolean created = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +44,6 @@ public class ServerActivity extends AppCompatActivity {
         args.putString("dialog_msg", "This service allows you to send the picture and save it to a remote server");
 
 
-        Spinner spinner = findViewById(R.id.spinner);
         Button submitButton = findViewById(R.id.submitButton);
 
         CustomDialogFragment obj2 = new CustomDialogFragment();
@@ -56,52 +53,24 @@ public class ServerActivity extends AppCompatActivity {
         obj2.show(fragmentManager, "dialog2");
 
 
-        //after yes set spinner and retrofit action
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.photo_types, android.R.layout.simple_spinner_item);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        // retrofit action
         submitButton.setOnClickListener(v -> submit());
-        submitButton.setVisibility(View.GONE);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (!created) {
-                    created = true;
-                } else {
-                    if (position > 0) {
-                        type = parent.getItemAtPosition(position).toString();
-                        submitButton.setVisibility(View.VISIBLE);
-                    } else {
-                        submitButton.setVisibility(View.GONE);
-                    }
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
 
     }
 
     public void submit() {
-        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://192.168.0.16:5000/").addConverterFactory(GsonConverterFactory.create());
+        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://192.168.0.198:5000/").addConverterFactory(GsonConverterFactory.create());
 
         File f = new File(getRealPathFromURI(this, imageUri));
 
         RequestBody filePart = RequestBody.create(MediaType.parse(this.getContentResolver().getType(imageUri)), f);
         MultipartBody.Part file = MultipartBody.Part.createFormData("photo", f.getName(), filePart);
-        RequestBody descriptionPart = RequestBody.create(MultipartBody.FORM, type);
 
         Retrofit retrofit = builder.build();
         UserClient client = retrofit.create(UserClient.class);
         Log.d("client", "client configured");
-        Call<ResponseBody> call = client.uploadPhoto(descriptionPart, file);
+        Call<ResponseBody> call = client.uploadPhoto(file);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
