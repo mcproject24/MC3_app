@@ -1,8 +1,10 @@
 package com.example.mc_project_3;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -27,6 +29,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ServerActivity extends AppCompatActivity {
     private Uri imageUri;
     public boolean sender;
+    WifiP2pManager manager;
+    WifiP2pManager.Channel channel;
+    BroadcastReceiver receiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
