@@ -1,4 +1,4 @@
-package com.example.mc_project_2;
+package com.example.mc_project_3;
 
 import android.content.Context;
 

@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MC_Project_1"
+rootProject.name = "MC_Project_3"
 include ':app'

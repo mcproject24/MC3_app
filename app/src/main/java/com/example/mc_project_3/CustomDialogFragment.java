@@ -1,8 +1,9 @@
-package com.example.mc_project_2;
+package com.example.mc_project_3;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -26,8 +27,11 @@ public class CustomDialogFragment extends DialogFragment{
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        //close the app
-                        getActivity().finishAndRemoveTask();
+                        //receiver code must be activated
+
+                        Intent j = new Intent(getContext(), ServerActivity.class);
+                        j.putExtra("isSender", false);
+                        getContext().startActivity(j);
                     }
                 });
     return builder.create();

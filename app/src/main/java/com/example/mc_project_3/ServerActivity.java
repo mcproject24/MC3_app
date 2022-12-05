@@ -1,4 +1,4 @@
-package com.example.mc_project_2;
+package com.example.mc_project_3;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -6,11 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,32 +26,37 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServerActivity extends AppCompatActivity {
     private Uri imageUri;
-
+    public boolean sender;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_server);
         Bundle bundle = getIntent().getExtras();
-        imageUri = bundle.getParcelable("image");
+        sender = bundle.getBoolean("isSender");
+        if(sender) {
+            imageUri = bundle.getParcelable("image");
 
 
-        Bundle args = new Bundle();
-        args.putString("dialog_title", "Do you want to send picture to server?");
-        args.putString("dialog_msg", "This service allows you to send the picture and save it to a remote server");
+            Bundle args = new Bundle();
+            args.putString("dialog_title", "Do you want to send picture to other phones in the network?");
+            args.putString("dialog_msg", "This service allows you to send the picture to to other devices and predict");
 
 
-        Button submitButton = findViewById(R.id.submitButton);
+            Button submitButton = findViewById(R.id.submitButton);
 
-        CustomDialogFragment obj2 = new CustomDialogFragment();
+            CustomDialogFragment obj2 = new CustomDialogFragment();
 
-        obj2.setArguments(args);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        obj2.show(fragmentManager, "dialog2");
+            obj2.setArguments(args);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            obj2.show(fragmentManager, "dialog2");
 
 
-        // retrofit action
-        submitButton.setOnClickListener(v -> submit());
+            // WiFi Direct action
+            submitButton.setOnClickListener(v -> submit());
+        }
+        else{
 
+        }
 
     }
 

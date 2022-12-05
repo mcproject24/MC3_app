@@ -1,4 +1,4 @@
-package com.example.mc_project_2;
+package com.example.mc_project_3;
 
 import android.Manifest;
 import android.content.ContentValues;
@@ -83,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         Bundle args = new Bundle();
 
-        args.putString("dialog_title", "Do you want to take a picture?");
-        args.putString("dialog_msg", "This service allows you to take a picture and upload it to the server");
+        args.putString("dialog_title", "Do you want this device to be a sender or a receiver?");
+        args.putString("dialog_msg", "This service allows you to take a picture if you are the sender if not it becomes a receiver");
         args.putString("dialog_num", "one");
 
         CustomDialogFragment obj = new CustomDialogFragment();
@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Photo saved", Toast.LENGTH_SHORT).show();
                             Uri u = outputFileResults.getSavedUri();
                             Intent i = new Intent(MainActivity.this, ServerActivity.class);
+                            i.putExtra("isSender", true);
                             i.putExtra("image", u);
                             startActivity(i);
                         }
