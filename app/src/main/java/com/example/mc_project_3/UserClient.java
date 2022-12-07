@@ -14,4 +14,5 @@ public interface UserClient {
     Call<ResponseBody> uploadPhoto(
             @Part MultipartBody.Part photo
             );
+
 }

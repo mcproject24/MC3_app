@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
                             // ask if it needs to be sent to the server
-                            Toast.makeText(getApplicationContext(), "Photo saved", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getApplicationContext(), "Photo saved", Toast.LENGTH_SHORT).show();
                             Uri u = outputFileResults.getSavedUri();
                             Intent i = new Intent(MainActivity.this, ServerActivity.class);
                             i.putExtra("isSender", true);

@@ -18,20 +18,20 @@ public class CustomDialogFragment extends DialogFragment{
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(dialog_msg)
                 .setTitle(dialog_title)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.sender, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                             Log.d("check1", "working properly");
                     }
              })
-                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.receiver, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //receiver code must be activated
 
-                        Intent j = new Intent(getContext(), ServerActivity.class);
+                        Intent j = new Intent(getActivity().getApplicationContext(), ServerActivity.class);
                         j.putExtra("isSender", false);
-                        getContext().startActivity(j);
+                        startActivity(j);
                     }
                 });
     return builder.create();
